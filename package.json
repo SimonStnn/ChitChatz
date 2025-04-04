@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "client": "nodemon src/client.ts",
+    "server": "nodemon src/server.ts"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.14",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
