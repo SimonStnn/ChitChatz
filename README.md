@@ -1,5 +1,13 @@
 # Demo Websocket 2
 
+## Setup
+
+Make a copy of `.env.template` and name it `.env`. Fill in the values for the environment variables.
+
+```bash
+cp .env.template .env
+```
+
 ## Usage
 
 ### Server
@@ -14,6 +22,6 @@ npm run server
 
 Run the client with the following command:
 
-```bash 
+```bash
 npm run client -- <name-for-client>
 ```
