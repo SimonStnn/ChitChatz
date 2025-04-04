@@ -20,6 +20,8 @@ if (!SECRET) {
   process.exit(1);
 }
 
+log.setLevel("debug");
+
 const server = new WebSocket.Server({ port: PORT });
 log.info(`WebSocket server is running on ws://localhost:${PORT}`);
 
@@ -33,13 +35,21 @@ server.on("connection", (ws) => {
   function sendMessage<E extends Response["event"]>(
     event: E,
     data: Extract<Response, { event: E }>["data"],
-    new_jwt?: string,
+    new_jwt?: string | JwtPayload,
     ws_client: WebSocket = ws
   ) {
+    if (new_jwt && typeof new_jwt === "object") new_jwt = signJWT(new_jwt);
+
     const res = { event, data, jwt: new_jwt } as Response; //TODO: satisfies Response
     const message = JSON.stringify(res);
     ws_client.send(message);
     log.debug(">>>", message);
+  }
+
+  function signJWT(payload: JwtPayload) {
+    return jwt.sign(payload, SECRET, {
+      expiresIn: "1h",
+    });
   }
 
   setTimeout(() => {
@@ -59,24 +69,23 @@ server.on("connection", (ws) => {
       const message = messageSchema.parse(parsedData);
 
       if (message.event === "register") {
+        log.debug("--- Registering", message.name);
         unauthenticated_clients.delete(ws);
         clients.add(ws);
         sendMessage(
           "register",
           {},
-          jwt.sign({ name: message.name, room: null } as JwtPayload, SECRET)
+          signJWT({ name: message.name, room: null })
         );
         return;
       }
 
-      const payload = tokenSchema.parse(jwt.verify(message.jwt, SECRET));
+      const payload = tokenSchema.parse(
+        jwt.verify(message.jwt, SECRET)
+      ) satisfies JwtPayload;
 
       switch (message.event) {
         case "get_room":
-          if (!payload.room) {
-            sendMessage("error", ["You are not in a room"]);
-            return;
-          }
           sendMessage("room", payload.room);
           break;
         case "get_rooms":
@@ -84,19 +93,20 @@ server.on("connection", (ws) => {
           break;
         case "join_room":
           if (payload.room) {
-            sendMessage("error", ["You are already in a room"]);
-            return;
+            // Leave the current room
+            rooms.get(payload.room)?.delete(ws);
           }
           const room = message.room;
+          // Create the room if it doesn't exist
           if (!rooms.has(room)) {
             rooms.set(room, new Set());
+            for (const client of clients) {
+              sendMessage("rooms", Array.from(rooms.keys()), undefined, client);
+            }
           }
+          // Add the client to the room
           rooms.get(room)?.add(ws);
-          sendMessage(
-            "register",
-            {},
-            jwt.sign({ name: payload.name, room } as JwtPayload, SECRET)
-          );
+          sendMessage("register", {}, signJWT({ name: payload.name, room }));
           log.info(`--- Client ${payload.name} registered to room ${room}`);
           break;
         case "message":
@@ -110,17 +120,15 @@ server.on("connection", (ws) => {
             return;
           }
           for (const client of room_clients) {
-            if (client !== ws) {
-              sendMessage(
-                "message",
-                {
-                  from: payload.name,
-                  content: message.data,
-                },
-                undefined,
-                client
-              );
-            }
+            sendMessage(
+              "message",
+              {
+                from: payload.name,
+                content: message.data,
+              },
+              client === ws ? signJWT(payload) : undefined,
+              client
+            );
           }
           break;
         case "leave_room":
@@ -132,11 +140,14 @@ server.on("connection", (ws) => {
           if (rooms.get(payload.room)?.size === 0) {
             rooms.delete(payload.room);
             log.debug(`--- Room ${payload.room} deleted`);
+            for (const client of clients) {
+              sendMessage("rooms", Array.from(rooms.keys()), undefined, client);
+            }
           }
           sendMessage(
             "register",
             {},
-            jwt.sign({ name: payload.name, room: null } as JwtPayload, SECRET)
+            signJWT({ name: payload.name, room: null })
           );
           log.info(`--- Client ${payload.name} left room ${payload.room}`);
           break;

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebRooms</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>WebRooms</h1>
+    </header>
+    <aside>
+      <section>
+        <input type="text" name="room" id="join-room-text" disabled />
+        <button id="leave-room" disabled>Leave room</button>
+        <button id="join-room" disabled>Join room</button>
+        <p id="room"></p>
+      </section>
+      <section>
+        <menu id="rooms">
+          <li>Loading</li>
+        </menu>
+      </section>
+    </aside>
+    <main>
+      <ul id="messages">
+        <li class="message">
+          <span>Loading</span>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsam
+            quidem quos aliquam nihil eius ipsum sequi.
+          </p>
+        </li>
+      </ul>
+      <input type="text" name="main" id="main-input" />
+    </main>
+    <footer>
+      <ul>
+        <li id="client-name"></li>
+        <li id="jwt"></li>
+        <li><button id="sign-out" n>Sign out</button></li>
+      </ul>
+    </footer>
+    <!-- Username Dialog -->
+    <dialog id="username-dialog">
+      <form method="dialog">
+        <label for="username">Enter your username:</label>
+        <input type="text" id="username" name="username" required />
+        <menu>
+          <button id="confirm" type="submit">Confirm</button>
+        </menu>
+      </form>
+    </dialog>
+  </body>
+</html>

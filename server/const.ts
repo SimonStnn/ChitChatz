@@ -63,7 +63,7 @@ export type Response = Prettify<
       }
     | {
         event: "room";
-        data: string;
+        data: string | null;
       }
     | {
         event: "rooms";
