@@ -6,7 +6,7 @@ export class AppState {
   private _rooms: string[] = [];
   private _room: string | null = null;
   private _clientName: string | null = null;
-  private _refreshInterval: number | null = null;
+  private _refreshInterval: NodeJS.Timeout | number | null = null;
 
   // Getter and Setter for WebSocket
   get ws(): WebSocket {
@@ -57,11 +57,11 @@ export class AppState {
   }
 
   // Getter and Setter for Refresh Interval
-  get refreshInterval(): number | null {
+  get refreshInterval(): NodeJS.Timeout |number | null {
     return this._refreshInterval;
   }
 
-  set refreshInterval(value: number | null) {
+  set refreshInterval(value: NodeJS.Timeout |number | null) {
     this._refreshInterval = value;
   }
 }

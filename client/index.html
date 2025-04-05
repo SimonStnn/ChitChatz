@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebRooms</title>
+    <title>ChitChatz</title>
     <script
       src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
       integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
@@ -14,7 +14,13 @@
   </head>
   <body>
     <header>
-      <h1>WebRooms</h1>
+      <div>
+        <!-- <img src="../assets/images/logo_full.png" alt="ChitChatz logo" class="logo" /> -->
+        <img src="../assets/images/logo.png" alt="ChitChatz logo" class="logo" />
+        <h1>ChitChatz</h1>
+        <div class="spacer"></div>
+        <span id="client-name"></span>
+      </div>
     </header>
     <div class="container">
       <aside>
@@ -53,7 +59,9 @@
     </footer>
     <dialog id="info-dialog">
       <form method="dialog">
-        <code id="client-name"></code><br />
+        <label for="client-name-info">Client name:</label>
+        <code id="client-name-info"></code>
+        <label for="client-version">JWT:</label>
         <code id="jwt"></code>
         <menu>
           <button id="close-info-dialog" type="submit">Close</button>

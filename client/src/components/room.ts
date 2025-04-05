@@ -5,23 +5,21 @@ import { send } from "@/controller/websocket";
 export function update_room_status() {
   const in_room = state.room !== null;
   if (in_room) {
-    console.info("You are in room:", state.room);
-    elements.room.text(`You are in room: ${state.room}`);
+    elements.room.text(state.room!);
   } else {
-    console.info("You are not in a room");
     elements.room.text("You are not in a room");
   }
 
   // Disable elements
-  elements.button_leave_room.prop("disabled", !in_room);
-  elements.button_join_room.prop("disabled", in_room);
-  elements.input_join_room.prop("disabled", in_room);
+  $("#leave-room").prop("disabled", !in_room);
+  $("#join-room").prop("disabled", in_room || !$("#join-room-text").val());
+  $("#join-room-text").prop("disabled", in_room);
   elements.main_input.prop("disabled", !in_room);
 
   // Hide elements
-  elements.button_leave_room.toggle(in_room);
-  elements.button_join_room.toggle(!in_room);
-  elements.input_join_room.toggle(!in_room);
+  $("#leave-room").toggle(in_room);
+  $("#join-room").toggle(!in_room);
+  $("#join-room-text").toggle(!in_room);
 
   // Clear messages
   elements.messages.html("");

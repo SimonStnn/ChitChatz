@@ -1,17 +1,20 @@
-import { elements, WS_URL } from "@/const";
+import { WS_URL } from "@/const";
 import state from "@/controller/state";
 import { send } from "@/controller/websocket";
 
 export default function on_ws_open(event: Event) {
-  console.log("Connected to", WS_URL);
+  console.info("Connected to", WS_URL);
 
   if (!state.clientName) {
     throw new Error("Client name is required");
   }
-  elements.li_client.text("Client: " + state.clientName);
+  $("#client-name").text(state.clientName);
+  $("#client-name-info").text(state.clientName);
   send("register", { name: state.clientName });
 
-  // refresh_interval = setInterval(() => {
-  //   console.log("Refreshing JWT", jwt);
-  // }, 1000);
+  state.refreshInterval = setInterval(() => {
+    if (state.ws.readyState !== state.ws.OPEN) return;
+    if (!state.clientName) return console.warn("Client name is required");
+    send("register", { name: state.clientName });
+  }, 60 * 1000);
 }

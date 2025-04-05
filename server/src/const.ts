@@ -5,6 +5,7 @@ export const messageSchema = z.union([
     .object({
       event: z.literal("register"),
       name: z.string(),
+      jwt: z.string().optional(),
     })
     .strict(),
   z

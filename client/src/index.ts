@@ -1,26 +1,42 @@
 import $ from "jquery";
 
-import { PORT, WS_URL, CLIENT_COOKIE_NAME, elements } from "@/const";
+import { CLIENT_COOKIE_NAME, elements } from "@/const";
 import state from "@/controller/state";
 import { send } from "@/controller/websocket";
 
 function join_room() {
-  const input = elements.input_join_room;
+  const input = $("#join-room-text");
   if (input.val()) {
     send("join_room", { room: input.val() as string });
     input.val("");
   }
 }
 
-elements.button_join_room.on("click", join_room);
-elements.input_join_room.on("keydown", (event) => {
+$("#join-room").on("click", join_room);
+$("#join-room-text").on("keydown", (event) => {
+  $("#join-room").prop(
+    "disabled",
+    // Disable button IF:
+    !(
+      // textbox is empty
+      (
+        $("#join-room-text").val() +
+        // Take the new character into account but exclude complex keys
+        // (e.g. Shift, Ctrl, Alt, etc.)
+        (event.key.length === 1 ? event.key : "")
+      )
+    ) ||
+      // OR pressed key is backspace AND textbox length is 1
+      (event.key === "Backspace" &&
+        String($("#join-room-text").val())?.length === 1)
+  );
   if (event.key === "Enter") {
     event.preventDefault();
     join_room();
   }
 });
 
-elements.button_leave_room.on("click", () => {
+$("#leave-room").on("click", () => {
   if (!state.room) return;
   send("leave_room", {});
 });
@@ -35,9 +51,9 @@ elements.main_input.on("keydown", (event) => {
   }
 });
 
-elements.dialog.on("submit", (event) => {
+$("#username-dialog").on("submit", (event) => {
   event.preventDefault();
-  elements.dialog.prop("open", false);
+  $("#username-dialog").prop("open", false);
 
   const form = event.target as HTMLFormElement;
   const input = $(form.elements.namedItem("username") as HTMLInputElement);
@@ -47,9 +63,13 @@ elements.dialog.on("submit", (event) => {
   state.setupWebSocket();
 });
 
-elements.button_sign_out.on("click", () => {
-  document.cookie = `${CLIENT_COOKIE_NAME}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+$("#sign-out").on("click", () => {
+  document.cookie = `${CLIENT_COOKIE_NAME}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   window.location.reload();
+});
+
+$("#info-button").on("click", () => {
+  $("#info-dialog").prop("open", true);
 });
 
 $(() => {
@@ -57,16 +77,13 @@ $(() => {
     .split(";")
     .find((c) => c.startsWith(`${CLIENT_COOKIE_NAME}=`));
   if (!jwt) {
-    elements.dialog.prop("open", true);
+    $("#username-dialog").prop("open", true);
     return;
   }
 
-  console.log("Found JWT in cookie:", jwt);
   const decoded = JSON.parse(atob(jwt.toString().split(".")[1]));
-  console.log("Decoded JWT:", decoded);
-
   state.clientName = decoded.name;
   state.setupWebSocket();
 });
 
-console.log("Script loaded");
+console.info("Script loaded");

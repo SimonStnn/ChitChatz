@@ -8,19 +8,49 @@ header {
   color: $color-primary-foreground;
   padding: $padding-l 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   border-bottom: $border;
+
+  .logo {
+    height: 3rem;
+    user-select: none;
+  }
 
   h1 {
     margin: 0;
-    text-align: center;
-    flex-grow: 1;
   }
 
-  button {
-    margin-left: auto;
-    margin-right: $margin-m;
+  > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: $margin-l;
+    margin: 0 $margin-m;
+
+    :not(h1) {
+      font-size: $font-size-l;
+      font-weight: 500;
+    }
+
+    @media screen and (min-width: $screen-xl) {
+      width: $screen-xl;
+      margin: 0 auto;
+
+      > :first-child {
+        margin-left: $margin-m;
+      }
+      > :last-child {
+        margin-right: $margin-m;
+      }
+    }
+  }
+
+  #client-name::after {
+    content: "🙋";
+    font-size: $font-size-xl;
+    font-weight: 400;
+    margin-left: $margin-s;
+    color: $color-primary-foreground;
+    filter: brightness(0) invert(100%);
   }
 }
 
@@ -31,8 +61,9 @@ aside {
   overflow-y: hidden;
 
   height: 30dvh;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $screen-m) {
     height: initial;
+    min-width: 340px;
     width: 30%;
   }
 
@@ -76,10 +107,10 @@ footer {
   overflow-wrap: break-word;
   background-color: $color-accent;
   color: $color-accent-foreground;
-  // padding: $padding-m;
 
   menu {
     display: flex;
+    justify-content: flex-end;
     gap: $margin-m;
     margin: $margin-m;
 
@@ -98,7 +129,6 @@ footer {
 }
 
 #rooms {
-  // flex: 1 1 auto;
   list-style-type: none;
 
   > li {

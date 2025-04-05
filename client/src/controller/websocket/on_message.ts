@@ -13,15 +13,14 @@ export default function on_ws_message(event: MessageEvent) {
 
     if (response.jwt) {
       state.jwt = response.jwt;
-      elements.li_jwt.text("JWT: " + state.jwt);
+      $("#jwt").text(state.jwt);
 
       const decoded = JSON.parse(atob(state.jwt.toString().split(".")[1]));
-      console.log("Decoded JWT:", decoded);
 
       const expirationDate = new Date(decoded.exp * 1000);
       document.cookie = `${CLIENT_COOKIE_NAME}=${
         state.jwt
-      }; expires=${expirationDate.toUTCString()}; path=/`;
+      }; expires=${expirationDate.toUTCString()}; path=/; SameSite=Strict; Secure`;
     }
 
     switch (response.event) {
@@ -38,11 +37,8 @@ export default function on_ws_message(event: MessageEvent) {
           `You are in room: ${state.room}`
         );
         elements.messages.append(room_li);
-        // Scroll to bottom
-        elements.messages.scrollTop(elements.messages[0].scrollHeight);
         break;
       case "rooms":
-        console.info("Rooms:", response.data);
         const legend = elements.room_list.find("legend");
         elements.room_list.empty();
         if (legend.length) elements.room_list.append(legend);
@@ -56,6 +52,8 @@ export default function on_ws_message(event: MessageEvent) {
           response.data.content
         );
         elements.messages.append(message_li);
+        // Scroll to bottom
+        elements.messages.scrollTop(elements.messages[0].scrollHeight);
         break;
       case "error":
         console.error("Error:", response.data);
