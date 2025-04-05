@@ -43,7 +43,9 @@ export default function on_ws_message(event: MessageEvent) {
         break;
       case "rooms":
         console.info("Rooms:", response.data);
-        elements.room_list.html("");
+        const legend = elements.room_list.find("legend");
+        elements.room_list.empty();
+        if (legend.length) elements.room_list.append(legend);
         for (const room of response.data) {
           elements.room_list.append(render_room(room));
         }

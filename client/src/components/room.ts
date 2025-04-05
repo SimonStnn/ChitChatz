@@ -29,6 +29,9 @@ export function update_room_status() {
 
 export default (room: string) => {
   const li = $("<li>").text(room);
+
+  if (state.room === room) li.addClass("current");
+
   li.on("click", () => {
     if (room) send("leave_room");
     send("join_room", { room });
