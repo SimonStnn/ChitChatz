@@ -1,0 +1,33 @@
+{
+  "name": "iot-apps-client",
+  "version": "4.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --minify",
+    "watch": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --watch",
+    "dev": "concurrently \"npm:watch\" \"live-server dist\"",
+    "start": "live-server dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonStnn/web-rooms.git"
+  },
+  "author": "Simon Stijnen",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/SimonStnn/web-rooms/issues"
+  },
+  "homepage": "https://github.com/SimonStnn/web-rooms#readme",
+  "dependencies": {
+    "@types/jquery": "^3.5.32",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.25.2",
+    "http-server": "^14.1.1",
+    "rimraf": "^6.0.1"
+  }
+}
