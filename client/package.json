@@ -7,8 +7,8 @@
     "clean": "rimraf dist",
     "build": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --minify",
     "watch": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --watch",
-    "dev": "concurrently \"npm:watch\" \"live-server dist\"",
-    "start": "live-server dist"
+    "dev": "concurrently \"npm:watch\" \"npm:start\"",
+    "start": "http-server ./"
   },
   "repository": {
     "type": "git",
@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/SimonStnn/web-rooms#readme",
   "dependencies": {
-    "@types/jquery": "^3.5.32",
     "jquery": "^3.7.1"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.32",
     "concurrently": "^9.1.2",
     "esbuild": "^0.25.2",
     "http-server": "^14.1.1",

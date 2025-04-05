@@ -1,4 +1,4 @@
-export const PORT = 8080;
+export const PORT = 3000;
 export const WS_URL = `ws://localhost:${PORT}`;
 export const CLIENT_COOKIE_NAME = "jwt";
 

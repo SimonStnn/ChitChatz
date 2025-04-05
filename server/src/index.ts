@@ -1,3 +1,4 @@
+import path from "path";
 import { WebSocket } from "ws";
 import { ZodError } from "zod";
 import log from "node-color-log";
@@ -10,9 +11,11 @@ import {
   type Response,
   type JwtPayload,
 } from "./const";
-dotenv.config();
+dotenv.config({
+  path: path.join(__dirname, "..", "..", ".env")
+});
 
-const PORT = Number(process.env.PORT) || 8080;
+const PORT = Number(process.env.PORT) || 3000;
 const SECRET = process.env.SECRET || "";
 
 if (!SECRET) {
