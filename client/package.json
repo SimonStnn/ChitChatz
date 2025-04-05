@@ -5,10 +5,15 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --minify",
-    "watch": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --watch",
-    "dev": "concurrently \"npm:watch\" \"npm:start\"",
-    "start": "http-server ./"
+    "build:ts": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --minify",
+    "build:sass": "sass src/styles/main.scss dist/styles.css --no-source-map --style=compressed",
+    "build": "npm run clean && npm run build:ts && npm run build:sass",
+    "watch": "concurrently \"npm:watch:ts\" \"npm:watch:sass\"",
+    "watch:ts": "esbuild src/index.ts --bundle --outfile=dist/bundle.js --watch",
+    "watch:sass": "sass src/styles/main.scss dist/styles.css --watch",
+    "dev": "concurrently \"npm:watch\" \"npm:serve\"",
+    "serve": "http-server",
+    "start": "http-server"
   },
   "repository": {
     "type": "git",
@@ -26,8 +31,12 @@
   "devDependencies": {
     "@types/jquery": "^3.5.32",
     "concurrently": "^9.1.2",
+    "css-loader": "^7.1.2",
     "esbuild": "^0.25.2",
     "http-server": "^14.1.1",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "sass": "^1.86.3",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0"
   }
 }
