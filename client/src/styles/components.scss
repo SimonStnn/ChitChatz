@@ -115,7 +115,8 @@ input {
 }
 
 .message {
-  padding: $padding 0 0 0;
+  position: relative;
+  margin: $margin 0 0 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
 
@@ -128,14 +129,57 @@ input {
     font-weight: bold;
   }
 
-  // &::after {
-  //   content: attr(data-time);
-  //   color: $color-muted;
-  //   font-size: $font-size-xs;
-  // }
+  &:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: $color-secondary;
+    width: 100%;
+    height: $border-width;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: attr(data-time);
+    color: $color-border;
+    font-size: $font-size-s;
+  }
 
   &:hover {
     box-shadow: inset 0 0 -1px $color-primary;
+  }
+}
+
+.message-context-menu {
+  position: absolute;
+  background-color: $color-background;
+  border-radius: $radius;
+  padding: $padding-s;
+  border: $border;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+  > * {
+    padding: $padding-s $padding-m;
+    margin: 0;
+    cursor: pointer;
+    list-style-type: none;
+
+    &:hover {
+      background-color: $color-muted;
+      color: $color-primary;
+    }
+  }
+
+  > .info {
+    color: $color-muted-foreground;
+  }
+
+  > .danger {
+    color: $color-error;
   }
 }
 

@@ -12,9 +12,11 @@ export default function on_ws_open(event: Event) {
   $("#client-name-info").text(state.clientName);
   send("register", { name: state.clientName });
 
-  state.refreshInterval = setInterval(() => {
-    if (state.ws.readyState !== state.ws.OPEN) return;
-    if (!state.clientName) return console.warn("Client name is required");
-    send("register", { name: state.clientName });
-  }, 60 * 1000);
+  // TODO: Handle token refreshing
+  //! Cannot send "register". Will 'reset' the client
+  // state.refreshInterval = setInterval(() => {
+  //   if (state.ws.readyState !== state.ws.OPEN) return;
+  //   if (!state.clientName) return console.warn("Client name is required");
+  //   send("register", { name: state.clientName });
+  // }, 60 * 1000);
 }
