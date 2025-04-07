@@ -72,6 +72,27 @@ $("#info-button").on("click", () => {
   $("#info-dialog").prop("open", true);
 });
 
+$("#customize-button").on("click", () => {
+  $("#customize-dialog").prop("open", true);
+});
+
+$("#customize-border-radius").on("input", (event) => {
+  const value = (event.target as HTMLInputElement).value;
+  $("#customize-border-radius-value").text(value);
+  // store in local storage
+  localStorage.setItem("border-radius", value);
+  document.documentElement.style.setProperty("--radius", `${value}px`);
+});
+$(() => {
+  // set border radius from local storage
+  const borderRadius = localStorage.getItem("border-radius");
+  if (borderRadius) {
+    document.documentElement.style.setProperty("--radius", `${borderRadius}px`);
+  }
+  $("#customize-border-radius").val(borderRadius || 0);
+  $("#customize-border-radius-value").text(borderRadius || 0);
+});
+
 $(() => {
   const jwt = document.cookie
     .split(";")

@@ -4,11 +4,11 @@
 @use "./components.scss";
 
 header {
-  background-color: $color-primary;
-  color: $color-primary-foreground;
-  padding: $padding-l 0;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  padding: var(--padding-l) 0;
   display: flex;
-  border-bottom: $border;
+  border-bottom: var(--border);
 
   .logo {
     height: 3rem;
@@ -23,11 +23,11 @@ header {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: $margin-l;
-    margin: 0 $margin-m;
+    gap: var(--margin-l);
+    margin: 0 var(--margin-m);
 
     :not(h1) {
-      font-size: $font-size-l;
+      font-size: var(--font-size-l);
       font-weight: 500;
     }
 
@@ -36,26 +36,26 @@ header {
       margin: 0 auto;
 
       > :first-child {
-        margin-left: $margin-m;
+        margin-left: var(--margin-m);
       }
       > :last-child {
-        margin-right: $margin-m;
+        margin-right: var(--margin-m);
       }
     }
   }
 
   #client-name::after {
     content: "🙋";
-    font-size: $font-size-xl;
+    font-size: var(--font-size-xl);
     font-weight: 400;
-    margin-left: $margin-s;
-    color: $color-primary-foreground;
+    margin-left: var(--margin-s);
+    color: var(--color-primary-foreground);
     filter: brightness(0) invert(100%);
   }
 }
 
 aside {
-  margin: $margin-m;
+  margin: var(--margin-m);
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
@@ -69,8 +69,8 @@ aside {
 
   > :first-child {
     display: flex;
-    gap: $margin-s;
-    margin-bottom: $margin-m;
+    gap: var(--margin-s);
+    margin-bottom: var(--margin-m);
 
     > input,
     > #leave-room {
@@ -85,7 +85,7 @@ aside {
 }
 
 main {
-  margin: $margin-m;
+  margin: var(--margin-m);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -105,24 +105,24 @@ footer {
   overflow-x: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  background-color: $color-accent;
-  color: $color-accent-foreground;
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
 
   menu {
     display: flex;
     justify-content: flex-end;
-    gap: $margin-m;
-    margin: $margin-m;
+    gap: var(--margin-m);
+    margin: var(--margin-m);
 
     @media screen and (min-width: $screen-xl) {
       width: $screen-xl;
-      margin: $margin-m auto;
+      margin: var(--margin-m) auto;
 
       > :first-child {
-        margin-left: $margin-m;
+        margin-left: var(--margin-m);
       }
       > :last-child {
-        margin-right: $margin-m;
+        margin-right: var(--margin-m);
       }
     }
   }
@@ -147,9 +147,9 @@ footer {
 
 dialog[open] {
   form {
-    background-color: $color-background;
-    border-radius: $radius;
-    padding: $padding-l $padding-xl;
+    background-color: var(--color-background);
+    border-radius: var(--radius);
+    padding: var(--padding-l) var(--padding-xl);
   }
 
   menu {
@@ -157,8 +157,8 @@ dialog[open] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: $margin-l;
-    margin-bottom: $margin-m;
+    margin-top: var(--margin-s);
+    margin-bottom: var(--margin-m);
     width: 100%;
   }
   button[type="submit"] {

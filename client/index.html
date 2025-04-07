@@ -58,6 +58,7 @@
     <footer>
       <menu>
         <button id="info-button">Info</button>
+        <button id="customize-button">Customize</button>
         <button id="sign-out" n>Sign out</button>
       </menu>
     </footer>
@@ -82,6 +83,25 @@
         <input type="text" id="username" name="username" required />
         <menu>
           <button id="confirm" type="submit">Confirm</button>
+        </menu>
+      </form>
+    </dialog>
+    <dialog id="customize-dialog">
+      <form method="dialog">
+        <label for="customize-border-radius">
+          Border radius:
+          <b><span id="customize-border-radius-value">0</span></b>
+        </label>
+        <input
+          type="range"
+          id="customize-border-radius"
+          name="customize-border-radius"
+          min="0"
+          max="20"
+          value="0"
+        />
+        <menu>
+          <button id="confirm" type="submit">Close</button>
         </menu>
       </form>
     </dialog>
