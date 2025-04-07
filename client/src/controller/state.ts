@@ -16,6 +16,7 @@ export class AppState {
   public setupWebSocket(): WebSocket {
     if (!this._ws) {
       this._ws = initWebsocket();
+      $("#info-dialog #state-ws").text(this.ws.url);
     }
     return this._ws;
   }
@@ -27,6 +28,7 @@ export class AppState {
 
   set jwt(value: string | null) {
     this._jwt = value;
+    $("#info-dialog #state-jwt").text(String(value));
   }
 
   // Getter and Setter for Rooms
@@ -45,6 +47,7 @@ export class AppState {
 
   set room(value: string | null) {
     this._room = value;
+    $("#info-dialog #state-room").text(String(value));
   }
 
   // Getter and Setter for Client Name
@@ -54,14 +57,16 @@ export class AppState {
 
   set clientName(value: string | null) {
     this._clientName = value;
+    $("#client-name").text(String(value));
+    $("#info-dialog #state-client-name").text(String(value));
   }
 
   // Getter and Setter for Refresh Interval
-  get refreshInterval(): NodeJS.Timeout |number | null {
+  get refreshInterval(): NodeJS.Timeout | number | null {
     return this._refreshInterval;
   }
 
-  set refreshInterval(value: NodeJS.Timeout |number | null) {
+  set refreshInterval(value: NodeJS.Timeout | number | null) {
     this._refreshInterval = value;
   }
 }

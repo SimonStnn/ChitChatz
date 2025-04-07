@@ -16,7 +16,11 @@
     <header>
       <div>
         <!-- <img src="../assets/images/logo_full.png" alt="ChitChatz logo" class="logo" /> -->
-        <img src="../assets/images/logo.png" alt="ChitChatz logo" class="logo" />
+        <img
+          src="../assets/images/logo.png"
+          alt="ChitChatz logo"
+          class="logo"
+        />
         <h1>ChitChatz</h1>
         <div class="spacer"></div>
         <span id="client-name"></span>
@@ -59,10 +63,14 @@
     </footer>
     <dialog id="info-dialog">
       <form method="dialog">
-        <label for="client-name-info">Client name:</label>
-        <code id="client-name-info"></code>
+        <label for="state-ws">Websocket URL:</label>
+        <code id="state-ws"></code>
+        <label for="state-client-name">Client name:</label>
+        <code id="state-client-name"></code>
         <label for="client-version">JWT:</label>
-        <code id="jwt"></code>
+        <code id="state-jwt"></code>
+        <label for="client-version">Room:</label>
+        <code id="state-room"></code>
         <menu>
           <button id="close-info-dialog" type="submit">Close</button>
         </menu>

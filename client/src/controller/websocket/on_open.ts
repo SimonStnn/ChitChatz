@@ -9,7 +9,6 @@ export default function on_ws_open(event: Event) {
     throw new Error("Client name is required");
   }
   $("#client-name").text(state.clientName);
-  $("#client-name-info").text(state.clientName);
   send("register", { name: state.clientName });
 
   // TODO: Handle token refreshing

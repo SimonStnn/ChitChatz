@@ -116,7 +116,7 @@ input {
 
 .message {
   position: relative;
-  margin: $margin 0 0 0;
+  margin: $margin-m 0 0 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
 
@@ -140,10 +140,11 @@ input {
   }
 
   &::after {
+    // Display date
+    content: attr(data-time);
     position: absolute;
     top: 0;
     right: 0;
-    content: attr(data-time);
     color: $color-border;
     font-size: $font-size-s;
   }

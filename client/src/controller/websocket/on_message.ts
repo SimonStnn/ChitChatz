@@ -13,7 +13,6 @@ export default function on_ws_message(event: MessageEvent) {
 
     if (response.jwt) {
       state.jwt = response.jwt;
-      $("#jwt").text(state.jwt);
 
       const decoded = JSON.parse(atob(state.jwt.toString().split(".")[1]));
 
