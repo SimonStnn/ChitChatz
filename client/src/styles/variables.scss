@@ -15,12 +15,16 @@ $screen-xxl: 1400px;
   --color-accent-foreground: var(--color-text);
   --color-background: hsl(192, 15%, 99%);
   --color-error: hsl(6, 78%, 57%);
+  --color-error-foreground: var(--color-primary-foreground);
   --color-success: hsl(145, 63%, 49%);
+  --color-success-foreground: var(--color-primary-foreground);
   --color-warning: hsl(37, 90%, 51%);
+  --color-warning-foreground: var(--color-text);
   --color-info: hsl(204, 70%, 53%);
-  --color-border: hsl(204, 8%, 76%);
+  --color-info-foreground: var(--color-primary-foreground);
   --color-muted: hsl(210 40% 96.1%);
   --color-muted-foreground: var(--color-text);
+  --color-border: hsl(204, 8%, 76%);
   --color-background-overlay: hsla(0, 0%, 0%, 0.25);
 
   --radius: 0rem;
