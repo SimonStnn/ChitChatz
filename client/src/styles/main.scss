@@ -176,9 +176,12 @@ dialog#error-dialog form {
     color: var(--color-error-foreground);
 
     &:hover {
-      background-color: var(--color-muted);
+      background-color: var(--color-error-foreground);
       color: var(--color-error);
       box-shadow: inset 0 0 0 1px var(--color-error);
+    }
+    &:hover::after {
+      background-color: var(--color-error);
     }
   }
 }
