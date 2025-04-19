@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  client:
+    build: ./client
+    container_name: chitchatz-client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    networks:
+      - chitchatz-network
+
+  server:
+    build: ./server
+    container_name: chitchatz-server
+    env_file:
+      - .env
+    environment:
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    networks:
+      - chitchatz-network
+
+networks:
+  chitchatz-network:
+    driver: bridge

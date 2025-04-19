@@ -63,8 +63,46 @@ ChitChatz/
 
 ### Prerequisites
 
-- Node.js (v14+)
-- npm or yarn
+- Node.js (v14+) and npm/yarn (for local development)
+- Docker and Docker Compose (for containerized deployment)
+
+### Docker Setup (Recommended)
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/ChitChatz.git
+   cd ChitChatz
+   ```
+
+2. Create a `.env` file from the template:
+
+   ```bash
+   cp .env.template .env
+   ```
+
+3. Edit the `.env` file with your secret key:
+
+   ```text
+   SECRET=your_jwt_secret_key
+   PORT=3000
+   ```
+
+4. Build and start the containers:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+5. Access the application at <http://localhost>
+
+6. To stop the application:
+
+   ```bash
+   docker-compose down
+   ```
+
+### Manual Setup
 
 ### Environment Setup
 

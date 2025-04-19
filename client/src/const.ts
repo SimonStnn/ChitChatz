@@ -1,5 +1,5 @@
 export const PORT = 3000;
-export const WS_URL = `ws://localhost:${PORT}`;
+export const WS_URL = `ws://${window.location.host}:${PORT}`;
 export const CLIENT_COOKIE_NAME = "jwt";
 
 export const elements = {

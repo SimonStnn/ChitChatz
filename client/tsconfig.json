@@ -9,7 +9,7 @@
     "lib": ["DOM", "ES2024"],
     "typeRoots": ["node_modules/@types", "types"],
     "paths": {
-      "@/*": ["./client/src/*", "./server/*"],
+      "@/*": ["./src/*"],
     },
   }
 }
